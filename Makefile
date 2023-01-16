@@ -2,6 +2,7 @@ MKFILE_PATH := $(abspath $(lastword $(MAKEFILE_LIST)))
 PROJECT_NAME := $(notdir $(patsubst %/,%,$(dir $(MKFILE_PATH))))
 BUILD_DIR := .build
 EXE := $(BUILD_DIR)/bin/$(PROJECT_NAME)
+TESTEXE := $(BUILD_DIR)/bin/$(PROJECT_NAME)_test
 
 .PHONY: build test clean run
 
@@ -16,7 +17,7 @@ build: $(BUILD_DIR)
 	cmake --build $(BUILD_DIR) 
 
 test:
-	ctest --test-dir $(BUILD_DIR) --output-on-failure
+	$(TESTEXE)
 
 clean:
 	rm -rf $(BUILD_DIR)

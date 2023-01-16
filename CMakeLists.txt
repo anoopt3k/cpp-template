@@ -14,6 +14,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(SOURCE_DIR "${PROJECT_SOURCE_DIR}/src/")
 set(INCLUDE_DIR "${PROJECT_SOURCE_DIR}/include/")
 set(TEST_SOURCE_DIR "${PROJECT_SOURCE_DIR}/tests/")
+set(TEST_BIN "${PROJECT_NAME}_test")
 
 # —————————————————————————————————————————
 # Conan Setup
@@ -33,9 +34,9 @@ target_link_libraries(${PROJECT_NAME} ${CONAN_LIBS})
 # create target for test, enable testing, and register a test "RunAllTests"
 # —————————————————————————————————————————
 if(ENABLE_TESTS)
-    file(GLOB_RECURSE TEST_SOURCES "${TEST_SOURCE_DIR}/*.cc" "${TEST_SOURCE_DIR}/*.cpp" "${TEST_SOURCE_DIR}/*.cxx")
-    add_executable(run_tests ${SOURCES})
-    target_link_libraries(${PROJECT_NAME} ${CONAN_LIBS})
     enable_testing()
-    add_test(RunAllTests run_tests)
+    file(GLOB_RECURSE TEST_SOURCES "${TEST_SOURCE_DIR}/*.cc" "${TEST_SOURCE_DIR}/*.cpp" "${TEST_SOURCE_DIR}/*.cxx")
+    add_executable(${TEST_BIN} ${TEST_SOURCES})
+    target_link_libraries(${TEST_BIN} ${CONAN_LIBS})
+    add_test(NAME RunAllTests WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/bin COMMAND ${TEST_BIN})
 endif()

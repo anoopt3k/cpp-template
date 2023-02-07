@@ -1,4 +1,5 @@
 [requires]
+argh/1.3.2
 gtest/1.12.1
 
 [generators]

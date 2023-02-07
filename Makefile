@@ -12,7 +12,7 @@ $(BUILD_DIR):
 	mkdir -p $(BUILD_DIR)
 
 build: $(BUILD_DIR)
-	conan install -if $(BUILD_DIR) .
+	conan install -if $(BUILD_DIR) . --build=missing
 	cmake . -B $(BUILD_DIR)
 	cmake --build $(BUILD_DIR) 
 
